@@ -3,6 +3,7 @@
 src/**
 .gitignore
 tsconfig.json
+scripts/**
 DEVELOPING*.md
 **/*.map
 **/*.ts

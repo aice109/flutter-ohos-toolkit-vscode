@@ -37,9 +37,10 @@ code --install-extension flutter-ohos-toolkit-<version>.vsix
 | `npm run publish:ovsx` | 打包并发布到 Open VSX |
 | `npm run ovsx:namespace` | 创建 Open VSX 发布者命名空间 |
 | `npm run ovsx:verify` | 校验 Open VSX PAT |
-| `npm run release:patch` | 提升补丁版本，提交并打 tag |
-| `npm run release:minor` | 提升次版本，提交并打 tag |
-| `npm run release:major` | 提升主版本，提交并打 tag |
+| `npm run release:patch` | 提升补丁版本，更新 CHANGELOG，提交并打 tag |
+| `npm run release:minor` | 提升次版本，更新 CHANGELOG，提交并打 tag |
+| `npm run release:major` | 提升主版本，更新 CHANGELOG，提交并打 tag |
+| `npm run changelog` | 为当前版本重新生成 CHANGELOG 条目 |
 
 ## 发布
 
@@ -50,7 +51,9 @@ npm run release:patch   # 或 release:minor / release:major
 git push && git push origin --tags
 ```
 
-`npm run release:*` 会自动更新 `package.json`（及 `package-lock.json`）、以 `chore: release <version>` 提交，并创建对应的 `v<version>` tag。执行前工作区需保持干净。
+`npm run release:*` 会自动更新 `package.json`（及 `package-lock.json`）、根据上次 tag 以来的提交生成 `CHANGELOG.md` 条目、以 `chore: release <version>` 一并提交，并创建对应的 `v<version>` tag。执行前工作区需保持干净。
+
+CHANGELOG 条目由 `version` 生命周期钩子（[`scripts/changelog.mjs`](scripts/changelog.mjs)）生成，因此会自动包含在发布提交里。之后可以手动润色措辞；若改动了，请在打下一个 tag 前先提交。
 
 推送 tag 会触发 [`.github/workflows/release.yml`](.github/workflows/release.yml)，依次：
 

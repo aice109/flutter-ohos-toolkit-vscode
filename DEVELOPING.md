@@ -37,9 +37,10 @@ The generated file is `flutter-ohos-toolkit-<version>.vsix`, where `<version>` i
 | `npm run publish:ovsx` | Package and publish to Open VSX |
 | `npm run ovsx:namespace` | Create the Open VSX publisher namespace |
 | `npm run ovsx:verify` | Verify the Open VSX PAT |
-| `npm run release:patch` | Bump patch version, commit and tag |
-| `npm run release:minor` | Bump minor version, commit and tag |
-| `npm run release:major` | Bump major version, commit and tag |
+| `npm run release:patch` | Bump patch version, update CHANGELOG, commit and tag |
+| `npm run release:minor` | Bump minor version, update CHANGELOG, commit and tag |
+| `npm run release:major` | Bump major version, update CHANGELOG, commit and tag |
+| `npm run changelog` | Regenerate the CHANGELOG entry for the current version |
 
 ## Release
 
@@ -50,7 +51,9 @@ npm run release:patch   # or release:minor / release:major
 git push && git push origin --tags
 ```
 
-`npm run release:*` bumps `package.json` (and `package-lock.json`), commits as `chore: release <version>` and creates the matching `v<version>` git tag. Your working tree must be clean first.
+`npm run release:*` bumps `package.json` (and `package-lock.json`), regenerates the `CHANGELOG.md` entry from the commits since the last tag, commits everything as `chore: release <version>` and creates the matching `v<version>` git tag. Your working tree must be clean first.
+
+The CHANGELOG entry is produced by the `version` lifecycle hook ([`scripts/changelog.mjs`](scripts/changelog.mjs)), so it is included in the release commit automatically. Edit the generated wording afterwards if you want; if you do, commit it before creating the next tag.
 
 Pushing the tag triggers [`.github/workflows/release.yml`](.github/workflows/release.yml), which:
 
