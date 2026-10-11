@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+- chore: auto-generate CHANGELOG entry on release
+- ci: one-command release + auto publish to Open VSX
+- ci: make GitHub Release step idempotent
+
 ## 0.1.2
 
 Documentation-only release.
