@@ -58,6 +58,30 @@ npm run package
 code --install-extension flutter-ohos-toolkit-0.1.0.vsix
 ```
 
+### Automated release (GitHub Actions)
+
+Pushing a version tag triggers [`.github/workflows/release.yml`](.github/workflows/release.yml), which builds the VSIX and creates a GitHub Release with the `.vsix` attached.
+
+```bash
+# 1. bump "version" in package.json, then commit
+npm version patch --no-git-tag-version   # or minor / major / explicit x.y.z
+git commit -am "chore: release 0.1.1"
+git push
+
+# 2. tag and push — the tag MUST match package.json version (e.g. v0.1.1)
+git tag v0.1.1
+git push origin v0.1.1
+```
+
+Optional — also publish to marketplaces by adding repository secrets:
+
+| Secret | Purpose |
+| --- | --- |
+| `VSCE_PAT` | [VS Code Marketplace](https://marketplace.visualstudio.com/manage) personal access token |
+| `OVSX_PAT` | [Open VSX](https://open-vsx.org) personal access token |
+
+When the secrets are present the workflow also runs `npm run publish` (Marketplace) and `ovsx publish` (Open VSX). You can also trigger the workflow manually from the **Actions** tab (`workflow_dispatch`).
+
 ## Language / i18n
 
 Both **English** and **简体中文 (zh-cn)** are built in. There are two ways to switch.

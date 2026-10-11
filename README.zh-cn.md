@@ -58,6 +58,30 @@ npm run package
 code --install-extension flutter-ohos-toolkit-0.1.0.vsix
 ```
 
+### 自动发布（GitHub Actions）
+
+推送版本 tag 会触发 [`.github/workflows/release.yml`](.github/workflows/release.yml)，自动构建 VSIX 并创建 GitHub Release，同时把 `.vsix` 作为附件上传。
+
+```bash
+# 1. 更新 package.json 里的 "version" 并提交（也可用 npm version）
+npm version patch --no-git-tag-version   # 或 minor / major / 指定 x.y.z
+git commit -am "chore: release 0.1.1"
+git push
+
+# 2. 打 tag 并推送 —— tag 必须与 package.json 版本一致（例如 v0.1.1）
+git tag v0.1.1
+git push origin v0.1.1
+```
+
+可选：如需同时发布到扩展市场，在仓库 Secrets 中添加：
+
+| Secret | 用途 |
+| --- | --- |
+| `VSCE_PAT` | [VS Code Marketplace](https://marketplace.visualstudio.com/manage) 的 Personal Access Token |
+| `OVSX_PAT` | [Open VSX](https://open-vsx.org) 的 Personal Access Token |
+
+配置后工作流会额外执行 `npm run publish`（Marketplace）和 `ovsx publish`（Open VSX）。也可以在 **Actions** 页面手动触发（`workflow_dispatch`）。
+
 ## 语言（多语言 / i18n）
 
 内置 **English** 与 **简体中文（zh-cn）**，有两种切换方式。

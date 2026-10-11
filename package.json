@@ -2,7 +2,7 @@
   "name": "flutter-ohos-toolkit",
   "displayName": "Flutter Tools for HarmonyOS",
   "description": "Flutter development companion for HarmonyOS (OpenHarmony): common Flutter commands, one-click Android / iOS / HarmonyOS emulators, and quick run & debug on all three mobile platforms.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "aice109",
   "license": "MIT",
   "repository": {
