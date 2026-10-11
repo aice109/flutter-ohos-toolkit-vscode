@@ -59,15 +59,23 @@ jobs:
       - name: Package VSIX
         run: npm run package
 
-      - name: Create GitHub Release
+      # 幂等：Release 已存在时只覆盖上传 VSIX，避免重跑时报
+      # "a release with the same tag name already exists" 而中断后续发布步骤。
+      - name: Create or update GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${{ steps.vars.outputs.tag }}" \
-            ./${{ steps.vars.outputs.vsix }} \
-            --title "${{ steps.vars.outputs.tag }}" \
-            --generate-notes \
-            --verify-tag
+          TAG="${{ steps.vars.outputs.tag }}"
+          VSIX="./${{ steps.vars.outputs.vsix }}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists — updating the VSIX asset only."
+            gh release upload "$TAG" "$VSIX" --clobber
+          else
+            gh release create "$TAG" "$VSIX" \
+              --title "$TAG" \
+              --generate-notes \
+              --verify-tag
+          fi
 
       # ----------------------------------------------------------------------
       # 可选：发布到 VS Code Marketplace（需在仓库 Secrets 配置 VSCE_PAT）
