@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 -4 220 212">
+  <!-- Flutter chevron + HarmonyOS "H" and signature bar -->
+  <g fill="#C5C5C5">
+    <g transform="translate(4 20) scale(0.7395)">
+      <g transform="translate(18 0)">
+        <path d="M37.7 128.9 L9.8 101.0 L100.4 10.4 L156.2 10.4 Z"/>
+        <path d="M156.2 94.0 L100.4 94.0 L78.5 115.9 L106.4 143.8 Z"/>
+        <path d="M79.5 170.7 L100.4 191.6 L156.2 191.6 L107.4 142.8 Z"/>
+      </g>
+    </g>
+    <g transform="translate(140 6)">
+      <rect x="0" y="0" width="24" height="150" rx="12"/>
+      <rect x="60" y="0" width="24" height="150" rx="12"/>
+      <rect x="17" y="63" width="50" height="24" rx="11"/>
+    </g>
+    <rect x="24.56" y="182" width="199.44" height="16" rx="8"/>
+  </g>
+</svg>

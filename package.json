@@ -1,0 +1,525 @@
+{
+  "name": "flutter-ohos-toolkit",
+  "displayName": "Flutter Tools for HarmonyOS",
+  "description": "Flutter development companion for HarmonyOS (OpenHarmony): common Flutter commands, one-click Android / iOS / HarmonyOS emulators, and quick run & debug on all three mobile platforms.",
+  "version": "0.1.0",
+  "publisher": "aice109",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aice109/flutter-ohos-toolkit-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aice109/flutter-ohos-toolkit-vscode/issues"
+  },
+  "homepage": "https://github.com/aice109/flutter-ohos-toolkit-vscode#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Debuggers",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "flutter",
+    "dart",
+    "harmonyos",
+    "openharmony",
+    "ohos",
+    "emulator",
+    "android",
+    "ios"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:flutterOhos.devices",
+    "onView:flutterOhos.emulators",
+    "onView:flutterOhos.commands"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "flutterOhos.pubGet",
+        "title": "%command.flutterOhos.pubGet.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "flutterOhos.pubUpgrade",
+        "title": "%command.flutterOhos.pubUpgrade.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "flutterOhos.pubOutdated",
+        "title": "%command.flutterOhos.pubOutdated.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(versions)"
+      },
+      {
+        "command": "flutterOhos.clean",
+        "title": "%command.flutterOhos.clean.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "flutterOhos.analyze",
+        "title": "%command.flutterOhos.analyze.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(search)"
+      },
+      {
+        "command": "flutterOhos.test",
+        "title": "%command.flutterOhos.test.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "flutterOhos.testCoverage",
+        "title": "%command.flutterOhos.testCoverage.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "flutterOhos.doctor",
+        "title": "%command.flutterOhos.doctor.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "flutterOhos.doctorVerbose",
+        "title": "%command.flutterOhos.doctorVerbose.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "flutterOhos.format",
+        "title": "%command.flutterOhos.format.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(symbol-color)"
+      },
+      {
+        "command": "flutterOhos.upgrade",
+        "title": "%command.flutterOhos.upgrade.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "flutterOhos.buildRunner",
+        "title": "%command.flutterOhos.buildRunner.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "flutterOhos.buildRunnerWatch",
+        "title": "%command.flutterOhos.buildRunnerWatch.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "flutterOhos.showDevices",
+        "title": "%command.flutterOhos.showDevices.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(device-mobile)"
+      },
+      {
+        "command": "flutterOhos.customCommand",
+        "title": "%command.flutterOhos.customCommand.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "flutterOhos.build.apk",
+        "title": "%command.flutterOhos.build.apk.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(package)"
+      },
+      {
+        "command": "flutterOhos.build.appbundle",
+        "title": "%command.flutterOhos.build.appbundle.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(package)"
+      },
+      {
+        "command": "flutterOhos.build.ipa",
+        "title": "%command.flutterOhos.build.ipa.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(package)"
+      },
+      {
+        "command": "flutterOhos.build.hap",
+        "title": "%command.flutterOhos.build.hap.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(package)"
+      },
+      {
+        "command": "flutterOhos.build.har",
+        "title": "%command.flutterOhos.build.har.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(package)"
+      },
+      {
+        "command": "flutterOhos.build.hsp",
+        "title": "%command.flutterOhos.build.hsp.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(package)"
+      },
+      {
+        "command": "flutterOhos.emulator.android",
+        "title": "%command.flutterOhos.emulator.android.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(device-mobile)"
+      },
+      {
+        "command": "flutterOhos.emulator.ios",
+        "title": "%command.flutterOhos.emulator.ios.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(device-mobile)"
+      },
+      {
+        "command": "flutterOhos.emulator.harmony",
+        "title": "%command.flutterOhos.emulator.harmony.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(device-mobile)"
+      },
+      {
+        "command": "flutterOhos.emulator.openDeveco",
+        "title": "%command.flutterOhos.emulator.openDeveco.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(link-external)"
+      },
+      {
+        "command": "flutterOhos.emulator.launchItem",
+        "title": "%command.flutterOhos.emulator.launchItem.title%",
+        "category": "%category.flutterOhos%"
+      },
+      {
+        "command": "flutterOhos.run.android",
+        "title": "%command.flutterOhos.run.android.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(play)"
+      },
+      {
+        "command": "flutterOhos.run.ios",
+        "title": "%command.flutterOhos.run.ios.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(play)"
+      },
+      {
+        "command": "flutterOhos.run.harmony",
+        "title": "%command.flutterOhos.run.harmony.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(play)"
+      },
+      {
+        "command": "flutterOhos.debug.android",
+        "title": "%command.flutterOhos.debug.android.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(debug-alt)"
+      },
+      {
+        "command": "flutterOhos.debug.ios",
+        "title": "%command.flutterOhos.debug.ios.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(debug-alt)"
+      },
+      {
+        "command": "flutterOhos.debug.harmony",
+        "title": "%command.flutterOhos.debug.harmony.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(debug-alt)"
+      },
+      {
+        "command": "flutterOhos.run.pick",
+        "title": "%command.flutterOhos.run.pick.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(play)"
+      },
+      {
+        "command": "flutterOhos.debug.pick",
+        "title": "%command.flutterOhos.debug.pick.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(debug-alt)"
+      },
+      {
+        "command": "flutterOhos.run.device",
+        "title": "%command.flutterOhos.run.device.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(play)"
+      },
+      {
+        "command": "flutterOhos.debug.device",
+        "title": "%command.flutterOhos.debug.device.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(debug-alt)"
+      },
+      {
+        "command": "flutterOhos.copyDeviceId",
+        "title": "%command.flutterOhos.copyDeviceId.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "flutterOhos.selectDevice",
+        "title": "%command.flutterOhos.selectDevice.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(device-mobile)"
+      },
+      {
+        "command": "flutterOhos.showLog",
+        "title": "%command.flutterOhos.showLog.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(output)"
+      },
+      {
+        "command": "flutterOhos.refresh",
+        "title": "%command.flutterOhos.refresh.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "flutterOhos.openSettings",
+        "title": "%command.flutterOhos.openSettings.title%",
+        "category": "%category.flutterOhos%",
+        "icon": "$(gear)"
+      }
+    ],
+    "configuration": {
+      "title": "%config.title%",
+      "properties": {
+        "flutterOhos.flutterPath": {
+          "type": "string",
+          "default": "flutter",
+          "description": "%config.flutterOhos.flutterPath.description%"
+        },
+        "flutterOhos.dartPath": {
+          "type": "string",
+          "default": "dart",
+          "description": "%config.flutterOhos.dartPath.description%"
+        },
+        "flutterOhos.android.sdkPath": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.android.sdkPath.description%"
+        },
+        "flutterOhos.android.emulatorPath": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.android.emulatorPath.description%"
+        },
+        "flutterOhos.ios.simulatorDevice": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.ios.simulatorDevice.description%"
+        },
+        "flutterOhos.ios.simulatorApp": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.ios.simulatorApp.description%"
+        },
+        "flutterOhos.harmony.sdkPath": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.harmony.sdkPath.description%"
+        },
+        "flutterOhos.harmony.hdcPath": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.harmony.hdcPath.description%"
+        },
+        "flutterOhos.harmony.emulatorPath": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.harmony.emulatorPath.description%"
+        },
+        "flutterOhos.harmony.devecoPath": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.harmony.devecoPath.description%"
+        },
+        "flutterOhos.terminal.name": {
+          "type": "string",
+          "default": "Flutter",
+          "description": "%config.flutterOhos.terminal.name.description%"
+        },
+        "flutterOhos.terminal.reuse": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.flutterOhos.terminal.reuse.description%"
+        },
+        "flutterOhos.run.mainEntry": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.run.mainEntry.description%"
+        },
+        "flutterOhos.run.extraArgs": {
+          "type": "string",
+          "default": "",
+          "description": "%config.flutterOhos.run.extraArgs.description%"
+        },
+        "flutterOhos.run.pubGetBeforeRun": {
+          "type": "boolean",
+          "default": false,
+          "description": "%config.flutterOhos.run.pubGetBeforeRun.description%"
+        },
+        "flutterOhos.refreshOnStartup": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.flutterOhos.refreshOnStartup.description%"
+        },
+        "flutterOhos.locale": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "en",
+            "zh-cn"
+          ],
+          "enumDescriptions": [
+            "%config.flutterOhos.locale.auto%",
+            "%config.flutterOhos.locale.en%",
+            "%config.flutterOhos.locale.zh%"
+          ],
+          "default": "auto",
+          "description": "%config.flutterOhos.locale.description%"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "flutterOhos",
+          "title": "%viewContainer.flutterOhos.title%",
+          "icon": "resources/flutter-ohos.svg"
+        }
+      ]
+    },
+    "views": {
+      "flutterOhos": [
+        {
+          "id": "flutterOhos.devices",
+          "name": "%view.flutterOhos.devices.name%",
+          "icon": "resources/flutter-ohos.svg"
+        },
+        {
+          "id": "flutterOhos.emulators",
+          "name": "%view.flutterOhos.emulators.name%",
+          "icon": "resources/flutter-ohos.svg"
+        },
+        {
+          "id": "flutterOhos.commands",
+          "name": "%view.flutterOhos.commands.name%",
+          "icon": "resources/flutter-ohos.svg"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "flutterOhos.run.device",
+          "when": "false"
+        },
+        {
+          "command": "flutterOhos.debug.device",
+          "when": "false"
+        },
+        {
+          "command": "flutterOhos.copyDeviceId",
+          "when": "false"
+        },
+        {
+          "command": "flutterOhos.emulator.launchItem",
+          "when": "false"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "flutterOhos.run.pick",
+          "when": "view == flutterOhos.devices",
+          "group": "navigation@1"
+        },
+        {
+          "command": "flutterOhos.debug.pick",
+          "when": "view == flutterOhos.devices",
+          "group": "navigation@2"
+        },
+        {
+          "command": "flutterOhos.refresh",
+          "when": "view == flutterOhos.devices",
+          "group": "navigation@3"
+        },
+        {
+          "command": "flutterOhos.emulator.android",
+          "when": "view == flutterOhos.emulators",
+          "group": "navigation@1"
+        },
+        {
+          "command": "flutterOhos.emulator.ios",
+          "when": "view == flutterOhos.emulators",
+          "group": "navigation@2"
+        },
+        {
+          "command": "flutterOhos.emulator.harmony",
+          "when": "view == flutterOhos.emulators",
+          "group": "navigation@3"
+        },
+        {
+          "command": "flutterOhos.refresh",
+          "when": "view == flutterOhos.emulators",
+          "group": "navigation@4"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "flutterOhos.run.device",
+          "when": "view == flutterOhos.devices && viewItem == device",
+          "group": "inline@1"
+        },
+        {
+          "command": "flutterOhos.debug.device",
+          "when": "view == flutterOhos.devices && viewItem == device",
+          "group": "inline@2"
+        },
+        {
+          "command": "flutterOhos.copyDeviceId",
+          "when": "view == flutterOhos.devices && viewItem == device"
+        },
+        {
+          "command": "flutterOhos.emulator.launchItem",
+          "when": "view == flutterOhos.emulators && viewItem == emulator",
+          "group": "inline@1"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "flutterOhos.run.pick",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r"
+      },
+      {
+        "command": "flutterOhos.debug.pick",
+        "key": "ctrl+alt+d",
+        "mac": "cmd+alt+d"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx --yes @vscode/vsce package --no-dependencies --baseContentUrl https://github.com/aice109/flutter-ohos-toolkit-vscode/blob/main --baseImagesUrl https://github.com/aice109/flutter-ohos-toolkit-vscode/raw/main",
+    "publish": "npx --yes @vscode/vsce publish --no-dependencies --baseContentUrl https://github.com/aice109/flutter-ohos-toolkit-vscode/blob/main --baseImagesUrl https://github.com/aice109/flutter-ohos-toolkit-vscode/raw/main",
+    "ovsx:namespace": "npx --yes ovsx create-namespace aice109",
+    "ovsx:verify": "npx --yes ovsx verify-pat aice109",
+    "publish:ovsx": "npm run package && npx --yes ovsx publish ./flutter-ohos-toolkit-*.vsix --skip-duplicate"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.5"
+  },
+  "icon": "resources/icon.png",
+  "l10n": "./l10n"
+}
