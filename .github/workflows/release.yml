@@ -53,6 +53,14 @@ jobs:
             exit 1
           fi
 
+      # 快速失败：未配置 OVSX_PAT 时直接报错，避免白跑构建与发 Release
+      - name: Verify Open VSX token
+        run: |
+          if [ -z "${OVSX_PAT}" ]; then
+            echo "::error::缺少 OVSX_PAT secret，无法自动发布到 Open VSX。请在仓库 Settings → Secrets and variables → Actions 添加 OVSX_PAT 后重试。"
+            exit 1
+          fi
+
       - name: Build extension
         run: npm run compile
 
@@ -85,8 +93,7 @@ jobs:
         run: npm run publish
 
       # ----------------------------------------------------------------------
-      # 可选：发布到 Open VSX（需在仓库 Secrets 配置 OVSX_PAT）
+      # 自动发布到 Open VSX（需在仓库 Secrets 配置 OVSX_PAT，缺失时上面的校验会提前报错）
       # ----------------------------------------------------------------------
       - name: Publish to Open VSX
-        if: env.OVSX_PAT != ''
         run: npx --yes ovsx publish ./${{ steps.vars.outputs.vsix }} --skip-duplicate

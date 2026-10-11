@@ -37,32 +37,40 @@ code --install-extension flutter-ohos-toolkit-<version>.vsix
 | `npm run publish:ovsx` | 打包并发布到 Open VSX |
 | `npm run ovsx:namespace` | 创建 Open VSX 发布者命名空间 |
 | `npm run ovsx:verify` | 校验 Open VSX PAT |
+| `npm run release:patch` | 提升补丁版本，提交并打 tag |
+| `npm run release:minor` | 提升次版本，提交并打 tag |
+| `npm run release:major` | 提升主版本，提交并打 tag |
 
-## 自动发布（GitHub Actions）
+## 发布
 
-推送版本 tag 会触发 [`.github/workflows/release.yml`](.github/workflows/release.yml)，自动构建 VSIX 并创建 GitHub Release，同时把 `.vsix` 作为附件上传。
+版本号、提交、tag 全部由 npm 脚本完成，一次发布只需两条命令：
 
 ```bash
-# 1. 更新 package.json 里的 "version" 并提交（也可用 npm version）
-npm version patch --no-git-tag-version   # 或 minor / major / 指定 x.y.z
-git commit -am "chore: release 0.1.1"
-git push
-
-# 2. 打 tag 并推送 —— tag 必须与 package.json 版本一致（例如 v0.1.1）
-git tag v0.1.1
-git push origin v0.1.1
+npm run release:patch   # 或 release:minor / release:major
+git push && git push origin --tags
 ```
 
-可选：如需同时发布到扩展市场，在仓库 Secrets 中添加：
+`npm run release:*` 会自动更新 `package.json`（及 `package-lock.json`）、以 `chore: release <version>` 提交，并创建对应的 `v<version>` tag。执行前工作区需保持干净。
+
+推送 tag 会触发 [`.github/workflows/release.yml`](.github/workflows/release.yml)，依次：
+
+1. 校验 tag 与 `package.json` 版本一致；
+2. 编译并打包 VSIX；
+3. 创建（或更新）GitHub Release 并附上 `.vsix`；
+4. 发布到 **Open VSX**（需 `OVSX_PAT` secret，缺失时工作流会提前失败）。
+
+若配置了 `VSCE_PAT`，还会额外发布到 VS Code Marketplace：
 
 | Secret | 用途 |
 | --- | --- |
-| `VSCE_PAT` | [VS Code Marketplace](https://marketplace.visualstudio.com/manage) 的 Personal Access Token |
-| `OVSX_PAT` | [Open VSX](https://open-vsx.org) 的 Personal Access Token |
+| `OVSX_PAT` | [Open VSX](https://open-vsx.org) 的 Personal Access Token —— 自动发布 Open VSX 必需 |
+| `VSCE_PAT` | [VS Code Marketplace](https://marketplace.visualstudio.com/manage) 的 Personal Access Token —— 可选 |
 
-配置后工作流会额外执行 `npm run publish`（Marketplace）和 `ovsx publish`（Open VSX）。也可以在 **Actions** 页面手动触发（`workflow_dispatch`）。
+也可以在 **Actions** 页面用 `workflow_dispatch` 手动触发（填入已存在的 tag，例如补配 secret 后重发）。
 
-> 若 GitHub Release 建好了但市场版本没跟上（例如 Open VSX 仍停留在旧版本），说明推送 tag 时对应的 `*_PAT` secret 尚未配置。补上 secret 后重跑工作流，或发布下一个补丁版本即可。
+> tag 必须与 `package.json` 版本一致，否则工作流会在版本校验处终止；用 `npm run release:*` 可自动保证一致。
+>
+> 对已存在的 tag 重跑是安全的：GitHub Release 会原地更新，Open VSX 使用 `--skip-duplicate` 发布。
 
 ## 目录结构
 

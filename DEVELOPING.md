@@ -37,32 +37,40 @@ The generated file is `flutter-ohos-toolkit-<version>.vsix`, where `<version>` i
 | `npm run publish:ovsx` | Package and publish to Open VSX |
 | `npm run ovsx:namespace` | Create the Open VSX publisher namespace |
 | `npm run ovsx:verify` | Verify the Open VSX PAT |
+| `npm run release:patch` | Bump patch version, commit and tag |
+| `npm run release:minor` | Bump minor version, commit and tag |
+| `npm run release:major` | Bump major version, commit and tag |
 
-## Automated release (GitHub Actions)
+## Release
 
-Pushing a version tag triggers [`.github/workflows/release.yml`](.github/workflows/release.yml), which builds the VSIX and creates a GitHub Release with the `.vsix` attached.
+Version bump, commit and tag are all handled by an npm script — a release is just two commands:
 
 ```bash
-# 1. bump "version" in package.json, then commit
-npm version patch --no-git-tag-version   # or minor / major / explicit x.y.z
-git commit -am "chore: release 0.1.1"
-git push
-
-# 2. tag and push — the tag MUST match package.json version (e.g. v0.1.1)
-git tag v0.1.1
-git push origin v0.1.1
+npm run release:patch   # or release:minor / release:major
+git push && git push origin --tags
 ```
 
-Optional — also publish to marketplaces by adding repository secrets:
+`npm run release:*` bumps `package.json` (and `package-lock.json`), commits as `chore: release <version>` and creates the matching `v<version>` git tag. Your working tree must be clean first.
+
+Pushing the tag triggers [`.github/workflows/release.yml`](.github/workflows/release.yml), which:
+
+1. verifies the tag matches `package.json`,
+2. compiles and packages the VSIX,
+3. creates (or updates) a GitHub Release with the `.vsix` attached,
+4. publishes to **Open VSX** (requires the `OVSX_PAT` secret; the workflow fails fast if it is missing).
+
+Optionally it also publishes to the VS Code Marketplace when `VSCE_PAT` is set:
 
 | Secret | Purpose |
 | --- | --- |
-| `VSCE_PAT` | [VS Code Marketplace](https://marketplace.visualstudio.com/manage) personal access token |
-| `OVSX_PAT` | [Open VSX](https://open-vsx.org) personal access token |
+| `OVSX_PAT` | [Open VSX](https://open-vsx.org) personal access token — required for the automatic Open VSX publish |
+| `VSCE_PAT` | [VS Code Marketplace](https://marketplace.visualstudio.com/manage) personal access token — optional |
 
-When the secrets are present the workflow also runs `npm run publish` (Marketplace) and `ovsx publish` (Open VSX). You can also trigger the workflow manually from the **Actions** tab (`workflow_dispatch`).
+You can also trigger the workflow manually from the **Actions** tab (`workflow_dispatch`) with an existing tag, e.g. after adding a missing secret.
 
-> If the GitHub Release is created but the marketplace versions do not advance (e.g. Open VSX stays on an older version), the corresponding `*_PAT` secret was missing when the tag was pushed. Add the secret and re-run the workflow, or publish the next patch release.
+> The tag must match the `package.json` version, otherwise the workflow stops at the version check. `npm run release:*` guarantees this.
+>
+> Re-running the workflow for a tag that already exists is safe — the GitHub Release is updated in place and Open VSX is published with `--skip-duplicate`.
 
 ## Project layout
 

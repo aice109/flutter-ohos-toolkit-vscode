@@ -513,7 +513,10 @@
     "publish": "npx --yes @vscode/vsce publish --no-dependencies --baseContentUrl https://github.com/aice109/flutter-ohos-toolkit-vscode/blob/main --baseImagesUrl https://github.com/aice109/flutter-ohos-toolkit-vscode/raw/main",
     "ovsx:namespace": "npx --yes ovsx create-namespace aice109",
     "ovsx:verify": "npx --yes ovsx verify-pat aice109",
-    "publish:ovsx": "npm run package && npx --yes ovsx publish ./flutter-ohos-toolkit-*.vsix --skip-duplicate"
+    "publish:ovsx": "npm run package && npx --yes ovsx publish ./flutter-ohos-toolkit-*.vsix --skip-duplicate",
+    "release:patch": "npm version patch -m \"chore: release %s\"",
+    "release:minor": "npm version minor -m \"chore: release %s\"",
+    "release:major": "npm version major -m \"chore: release %s\""
   },
   "devDependencies": {
     "@types/node": "^20.11.30",
