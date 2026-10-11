@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.2
+
+Documentation-only release.
+
+### Docs
+- README now focuses on installation and usage; development, build and release instructions moved to `DEVELOPING.md` / `DEVELOPING.zh-cn.md`.
+- Documented the npm scripts, the tag-driven release workflow and the optional marketplace secrets.
+
+## 0.1.1
+
+### Release automation
+- Added [`.github/workflows/release.yml`](.github/workflows/release.yml): pushing a `v*` tag builds the VSIX and creates a GitHub Release with the `.vsix` attached.
+- Optional publishing to the VS Code Marketplace (`VSCE_PAT`) and Open VSX (`OVSX_PAT`) when the repository secrets are present.
+- Documented the packaging and release flow in the READMEs.
+
 ## 0.1.0
 
 Initial release.

@@ -45,42 +45,9 @@ Run from the Command Palette or the **Commands** view in the sidebar (executed i
 
 ## Getting Started
 
-1. Develop the extension: open this repository in VS Code and press `F5` to launch "Run Extension".
+1. Install the extension — from [Open VSX](https://open-vsx.org/extension/aice109/flutter-ohos-toolkit) / the Marketplace badge above, or build the VSIX yourself (see [DEVELOPING.md](DEVELOPING.md)).
 2. In a Flutter HarmonyOS project, open the **Flutter OHOS** icon in the activity bar.
 3. Click ▶ / 🐞 in the view title bar to pick a device and run or debug.
-
-### Package as VSIX
-
-```bash
-npm install
-npm run compile
-npm run package
-code --install-extension flutter-ohos-toolkit-0.1.0.vsix
-```
-
-### Automated release (GitHub Actions)
-
-Pushing a version tag triggers [`.github/workflows/release.yml`](.github/workflows/release.yml), which builds the VSIX and creates a GitHub Release with the `.vsix` attached.
-
-```bash
-# 1. bump "version" in package.json, then commit
-npm version patch --no-git-tag-version   # or minor / major / explicit x.y.z
-git commit -am "chore: release 0.1.1"
-git push
-
-# 2. tag and push — the tag MUST match package.json version (e.g. v0.1.1)
-git tag v0.1.1
-git push origin v0.1.1
-```
-
-Optional — also publish to marketplaces by adding repository secrets:
-
-| Secret | Purpose |
-| --- | --- |
-| `VSCE_PAT` | [VS Code Marketplace](https://marketplace.visualstudio.com/manage) personal access token |
-| `OVSX_PAT` | [Open VSX](https://open-vsx.org) personal access token |
-
-When the secrets are present the workflow also runs `npm run publish` (Marketplace) and `ovsx publish` (Open VSX). You can also trigger the workflow manually from the **Actions** tab (`workflow_dispatch`).
 
 ## Language / i18n
 
@@ -159,26 +126,9 @@ When not configured manually, the extension probes in this order:
 - The Flutter OHOS fork's `flutter emulators` is incompatible on some platforms, so this extension **does not rely on it** and instead calls each platform's native tools directly.
 - If `flutter devices` and `hdc` disagree, make sure the device is visible via `hdc list targets` and authorized.
 
-## Project layout
+## Contributing
 
-```
-src/
-  extension.ts   Entry: registers commands, views, status bar
-  controller.ts  Central state: device/emulator lists, run & debug dispatch
-  commands.ts    Registration and implementation of all commands
-  trees.ts       The Devices / Emulators / Commands views
-  flutterCli.ts  Flutter process invocation and device parsing
-  emulators.ts   Android / iOS / HarmonyOS emulator wrappers
-  debug.ts       Dart-Code debug session and run arguments
-  config.ts      Configuration reading and path auto-detection
-  terminal.ts    Integrated terminal management
-  platform.ts    Device platform classification
-  logger.ts      Output channel
-  util.ts        Shared utilities
-l10n/            Runtime localization bundles (bundle.l10n*.json)
-package.nls.json / package.nls.zh-cn.json   Manifest localization (English/Chinese)
-resources/       Icons (flutter-ohos.svg activity-bar icon, icon.png marketplace icon)
-```
+Development, build, release and project-layout docs live in [DEVELOPING.md](DEVELOPING.md).
 
 ## License
 

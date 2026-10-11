@@ -45,42 +45,9 @@
 
 ## 快速开始
 
-1. 打开 VS Code 扩展开发：用 VS Code 打开本仓库，按 `F5` 启动「Run Extension」。
+1. 安装扩展 —— 从 [Open VSX](https://open-vsx.org/extension/aice109/flutter-ohos-toolkit) / 上方 Marketplace 徽章安装，或自行打包 VSIX（见 [DEVELOPING.zh-cn.md](DEVELOPING.zh-cn.md)）。
 2. 在 Flutter HarmonyOS 项目中，打开活动栏的 **Flutter OHOS** 图标。
 3. 点击标题栏 ▶ / 🐞 选择设备运行或调试。
-
-### 打包成 VSIX
-
-```bash
-npm install
-npm run compile
-npm run package
-code --install-extension flutter-ohos-toolkit-0.1.0.vsix
-```
-
-### 自动发布（GitHub Actions）
-
-推送版本 tag 会触发 [`.github/workflows/release.yml`](.github/workflows/release.yml)，自动构建 VSIX 并创建 GitHub Release，同时把 `.vsix` 作为附件上传。
-
-```bash
-# 1. 更新 package.json 里的 "version" 并提交（也可用 npm version）
-npm version patch --no-git-tag-version   # 或 minor / major / 指定 x.y.z
-git commit -am "chore: release 0.1.1"
-git push
-
-# 2. 打 tag 并推送 —— tag 必须与 package.json 版本一致（例如 v0.1.1）
-git tag v0.1.1
-git push origin v0.1.1
-```
-
-可选：如需同时发布到扩展市场，在仓库 Secrets 中添加：
-
-| Secret | 用途 |
-| --- | --- |
-| `VSCE_PAT` | [VS Code Marketplace](https://marketplace.visualstudio.com/manage) 的 Personal Access Token |
-| `OVSX_PAT` | [Open VSX](https://open-vsx.org) 的 Personal Access Token |
-
-配置后工作流会额外执行 `npm run publish`（Marketplace）和 `ovsx publish`（Open VSX）。也可以在 **Actions** 页面手动触发（`workflow_dispatch`）。
 
 ## 语言（多语言 / i18n）
 
@@ -159,26 +126,9 @@ git push origin v0.1.1
 - Flutter OHOS 分支的 `flutter emulators` 在部分平台存在兼容性问题，因此本扩展**不依赖**该命令，而是直接调用各平台原生工具。
 - 若 `flutter devices` 与 `hdc` 检测结果不一致，请确认设备已通过 `hdc list targets` 可见并已授权。
 
-## 目录结构
+## 参与开发
 
-```
-src/
-  extension.ts   入口：注册命令、视图、状态栏
-  controller.ts  中央状态：设备/模拟器列表、运行与调试调度
-  commands.ts    所有命令的注册与实现
-  trees.ts       Devices / Emulators / Commands 三个视图
-  flutterCli.ts  flutter 进程调用与设备解析
-  emulators.ts   Android / iOS / HarmonyOS 模拟器封装
-  debug.ts       Dart-Code 调试会话与运行参数
-  config.ts      配置读取与路径自动探测
-  terminal.ts    集成终端管理
-  platform.ts    设备平台归类
-  logger.ts      输出通道
-  util.ts        通用工具
-l10n/            运行时多语言包（bundle.l10n*.json）
-package.nls.json / package.nls.zh-cn.json   界面清单纯英/中文
-resources/       图标（flutter-ohos.svg 活动栏图标、icon.png 市场图标）
-```
+开发、构建、发布与目录结构文档见 [DEVELOPING.zh-cn.md](DEVELOPING.zh-cn.md)。
 
 ## License
 
